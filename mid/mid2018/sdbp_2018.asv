@@ -1,0 +1,52 @@
+%% SDBP
+p = [1 -1 -1; 1 1 1]
+t = [0; 1]
+
+fprintf("lenght p {%d}\n",length(p))
+fprintf("size p {%d}\n",size(p, 1))
+
+% initial weight
+w_layer1 = [0.1 -0.2 0.3]
+bias_layer1 = [-0.4]
+
+learning_rate = 0.5
+
+%% n11 or a1 = w*p'+bias => sigmoidSDBP
+% n11 = w_layer1*p(1,:)'+bias_layer1
+
+% n11_after_sigmoidSDBP = sigmoidSDBP(n11)
+
+% e = t(1,:)-n11_after_sigmoidSDBP
+
+%% s1 = -2f1e ; f1=(1-a1)(a1)
+% a1 = n11_after_sigmoidSDBP;
+
+% s_layer1 = -2*(1-a1)*(a1)*(e)
+
+%% new_w1 = w1-learning_rate*(s1)*(p)
+% w1_new = w_layer1-learning_rate*s_layer1*p(1,:)
+
+%% bias new
+ % bias_new = bias_layer1 - learning_rate*s_layer1
+
+%% Loop computing
+w_new_his = []
+bias_new_his = []
+fprintf('------------- start !! -------------\n');
+for i=1:size(p, 1)
+    fprintf('------------- Iteration %d -------------\n', i);
+    current_row = p(i,:)
+    n = w_layer1 * current_row' + bias_layer1
+    a = sigmoidSDBP(n)
+    e = t(i,:) - a
+    s_layer1 = -2*(1-a)*(a)*(e)
+    w1_new = w_layer1-learning_rate*s_layer1*p(i,:)
+    w_new_his = [w_new_his, w1_new]
+    bias_new = bias_layer1 - learning_rate*s_layer1
+    bias_new_
+end
+
+%% function
+function sm = sigmoidSDBP(x)
+   sm = (1 + exp(-x))^-1;
+end

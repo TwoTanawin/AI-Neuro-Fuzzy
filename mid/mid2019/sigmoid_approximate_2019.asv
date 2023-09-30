@@ -1,0 +1,39 @@
+%% sigmoid approximation
+%% define parameter
+syms p
+
+w1 = [1 5 8 10 12]
+b1 = [20 0 -80 -300 -600]
+
+w2 = [25 -10 -20 40 -50]
+b2 = [15]
+
+% n1 = w1(1)*p+b1(1) == 0
+% 
+% solve(n1, p)
+
+%% loop solve p parameter
+center_value = [];
+
+for i=1:length(w1)
+    n = w1(i)*p+b1(i) == 0
+    n_solve = solve(n, p)
+    center_value = [center_value, n_solve];
+end
+
+center_value
+
+%% plot
+plot(center_value, w1)
+
+%%
+x = [-20, 0, 10, 30, 50]
+
+%%
+function sm = sigmoid(x)
+   sm = 1 ./ (1 + exp(-x));
+end
+
+function y = linear_function(x)
+    y = x;
+end

@@ -1,0 +1,100 @@
+%% LVQ by hand
+
+p1 = [-11 9 22];
+% t1 = [10 20 30 40 50];
+
+p2 = [-5 6 9];
+% t2 = [25 24 23 22 21];
+
+p3 = [13 7 9];
+% t3 = [10 20 30 40 50];
+
+p4 = [-9 11 18];
+% t4 = [10 20 30 40 50];
+
+p5 = [-5 4 11];
+% t5 = [25 24 23 22 21];
+
+p6 = [17 3 11];
+% t6 = [10 20 30 40 50];
+
+p7 = [12 1 -35];
+% t7 = [25 24 23 22 21];
+
+p8 = [-1 2 -10];
+% t8 = [10 20 30 40 50];
+
+p9 = [-6 -7 0];
+% t9 = [1 1 1 1 1];
+
+p10 = [1 -2 -10];
+% t10 = [10 20 30 40 50];
+
+p11 = [-4 -3 0];
+% t11 = [1 1 1 1 1];
+
+p12 = [8 -1 -45];
+% t12 = [25 24 23 22 21];
+
+%% Plot
+
+% Create a cell array to hold all the p values
+% p_values = [p1; p2; p3; p4; p5; p6; p7; p8; p9; p10]
+
+% p_values(1, :)
+
+% %%
+% 
+% % Define colors for each p value
+% colors = {'r', 'g', 'b', 'c', 'm', 'y', 'k', 'r', 'g', 'b'};
+% 
+% 
+% % Create individual scatter plots for each p value
+% for i = 1:length(p_values)
+%     scatter(1:length(p_values(i,:)), p_values(i,:), [], colors{i});
+%     hold on;
+% end
+% 
+% % Add titles, labels, and legend
+% title('Scatter Plots for p1 to p10');
+% xlabel('Index');
+% ylabel('Value');
+% legend('p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10');
+
+%% list following number of p
+disp("--------- w11 ---------")
+w11 = get_weight(p1, p4) % p1 p4
+disp("--------- w12 ---------")
+w12 = get_weight(p2, p5) % p2 p5
+disp("--------- w13 ---------")
+w13 = get_weight(p3, p6) % p3 p6
+disp("--------- w14 ---------")
+w14 = get_weight(p8, p10) % p7 p12 xxx p7, p12
+disp("--------- w15 ---------")
+w15 = get_weight(p7, p12) % p8 p10  xxx p8, p10
+disp("--------- w16 ---------")
+w16 = get_weight(p9, p11) % p9 p11
+
+
+
+% Check if the result is a 3x1 array
+expected_size = [3, 1];
+assert(isequal(size(w11), expected_size), 'Result is not a 3x1 array.');
+%%
+
+fprintf("shape of array p1 %d \n",ndims(p1))
+
+disp("--------- weight 1 W1 ---------")
+w1 = [w11 w12 w13 w14 w15 w16]
+w1'
+
+%% get new weight
+
+function weight = get_weight(p1, p2)    
+    disp("pL")
+    disp(p1)
+    disp("pR")
+    disp(p2)
+    weight = (1/2)*(p1'+p2'); % Edit 1/2 !!!
+end
+

@@ -1,0 +1,59 @@
+%% sigmoid approximation
+%% define parameter
+syms p
+
+w1 = [1 5 8 10 12]
+b1 = [20 0 -80 -300 -600]
+
+w2 = [25 -10 -20 40 -50]
+b2 = [15]
+
+% n1 = w1(1)*p+b1(1) == 0
+% 
+% solve(n1, p)
+
+%% loop solve p parameter
+p_value = [];
+
+for i=1:length(w1)
+    n = w1(i)*p+b1(i) == 0
+    n_solve = solve(n, p)
+    p_value = [p_value, n_solve];
+end
+
+p_value
+%%
+at1 = linear_function((w1(1)*p_value(1)')+b1(1))
+w1(1)
+p_value(1)
+b1(1)
+at1
+%%
+a_layer1 = [];
+for k=1:length(w1)
+    % a2 = linear_function((w2(i)*p_value(i)')+b2)
+    a_layer1 = [a_layer1, linear_function((w1(k)*p_value(k)')+b1(k))];
+end
+
+a_layer1
+
+%%
+a_layer2 = [];
+for j=1:length(w2)
+    % a2 = linear_function((w2(i)*p_value(i)')+b2)
+    a_layer2 = [a_layer2, linear_function((w2(j)*p_value(j)')+b2)];
+end
+
+a_layer2
+
+%%
+a1 = sigmoid(((w2*p_value')+b2))
+
+%%
+function sm = sigmoid(x)
+   sm = 1 ./ (1 + exp(-x));
+end
+
+function y = linear_function(x)
+    y = x;
+end
